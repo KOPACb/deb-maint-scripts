@@ -1,0 +1,56 @@
+#!/bin/bash
+# template for pre/post inst/rm in debian package
+
+#DEFINE COLORS
+NC="\e[39m\e[49m\e[0m"  #use it to disable color
+#RED="\e[31m"
+RED="\e[91m"
+#GREEN="\e[32m"
+GREEN="\e[92m"
+#YELLOW="\e[33m"
+YELLOW="\e[93m"
+BLUE="\e[34m"
+# colors with background
+BRED="\e[41m"
+BGREEN="\e[42m"
+BYELLOW="\e[43m"
+BBLUE="\e[44m"
+BMAGENTA="\e[105m"
+
+#define VARS
+SELF=`basename "$0"`
+CURRENTD=$(pwd)
+
+# ======[ Trap Errors ]======#
+set -E # let shell functions inherit ERR trap
+
+# Trap non-normal exit signals:
+# 1/HUP, 2/INT, 3/QUIT, 15/TERM, ERR
+trap err_handler 1 2 3 15 ERR
+function err_handler {
+local exit_status=${1:-$?}
+logger -s -p "syslog.err" -t "${SELF%%.*}" "${SELF} script '$0' error code $exit_status (line $BASH_LINENO: '$BASH_COMMAND')"
+exit $exit_status
+}
+#end of logging section
+
+#specific {pre,post}{inst,rm} args from dpkg
+# http://man7.org/linux/man-pages/man5/deb-postrm.5.html
+#preinst: remove, purge, upgrade, failed-upgrade, disappear, abort-install, abort-upgrade
+case "$1" in
+  remove)
+  ;;
+  purge|disappear)
+  ;;
+  abort-install)
+  ;;
+  upgrade)
+  ;;
+  failed-upgrade)
+  ;;
+  *)
+    echo "${SELF} called with unknown argument '$1'" >&2
+  ;;
+esac
+
+exit 0
