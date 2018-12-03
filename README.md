@@ -1,2 +1,2 @@
-# deb-maint-scripts
-Debian Maintainer Script templates
+# Debian Maintainer Script templates
+
