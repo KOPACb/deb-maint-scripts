@@ -36,7 +36,7 @@ exit $exit_status
 
 # enable_service SERVICE_NAME
 enable_service () {
-  deb-systemd-invoke enable ${1}
+  deb-systemd-helper enable ${1}
 }
 
 # restart_service SERVICE_NAME
