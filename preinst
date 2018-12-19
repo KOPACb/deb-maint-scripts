@@ -1,4 +1,4 @@
-${USER}#!/bin/bash
+#!/bin/bash
 # template for pre/post inst/rm in debian package
 
 #DEFINE COLORS
@@ -20,6 +20,7 @@ BMAGENTA="\e[105m"
 #define VARS
 SELF=`basename "$0"`
 CURRENTD=$(pwd)
+USER=worker
 
 # ======[ Trap Errors ]======#
 set -E # let shell functions inherit ERR trap
